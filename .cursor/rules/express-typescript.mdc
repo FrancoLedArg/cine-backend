@@ -1,0 +1,94 @@
+---
+description: Rules for Express + Typescript Backend
+globs:
+alwaysApply: true
+---
+
+# Node.js + Express + TypeScript + Drizzle Rules
+
+You are an expert in Node.js, Express, TypeScript, and Drizzle ORM.
+Always provide concise, technical TypeScript code that follows the conventions below.
+
+---
+
+## Code Style and Structure
+
+- Write **concise TypeScript code** with accurate examples.
+- Favor **functional and declarative programming patterns**; avoid classes unless strictly necessary (e.g., custom errors).
+- Eliminate code duplication → extract helpers, services, or middleware.
+- Use descriptive variable names with auxiliary verbs (`isValid`, `hasPermission`, `shouldRetry`).
+- Recommended file structure:
+
+  ```
+  src/
+    modules/         // domain logic (users, auth, etc.)
+      users/
+        routes.ts
+        controller.ts
+        service.ts
+        schema.ts     // zod schemas
+        types.ts
+      auth/
+    db/              // drizzle config and migrations
+    middleware/
+    utils/
+    config/
+  ```
+
+---
+
+## Naming Conventions
+
+- Use **lowercase with dashes** for directories (`user-service`, `email-utils`).
+- Prefer **named exports** over default exports.
+- Interfaces: `User`, `AuthPayload`.
+- Utility types: `UserId = string`.
+
+---
+
+## TypeScript Usage
+
+- Always enable **strict mode** (`strict: true`).
+- Prefer **interfaces** over `type` unless unions are required.
+- Avoid `enum` → use **const objects + keyof typeof**.
+- Perform runtime validation with **Zod** (requests, envs, configs).
+- Type Express requests: `Request<Params, ResBody, ReqBody>`.
+
+---
+
+## Syntax and Formatting
+
+- Use the `function` keyword for pure functions.
+- Apply **early return** to simplify conditionals; avoid deep nesting and unnecessary `else`.
+- Enforce code formatting with **Prettier**.
+- Use `async/await` consistently; avoid `.then/.catch` chaining.
+
+---
+
+## Error Handling and Logging
+
+- Validate all incoming requests with **Zod**.
+- Use a **global error middleware** for centralized error handling.
+- Implement a custom `AppError` with `statusCode` and `message`.
+- Do not expose raw DB or internal error messages in API responses.
+- Use `console.log` for logging initially, but keep structure extensible for future loggers.
+
+---
+
+## Database (Drizzle)
+
+- Define schemas in `/db/schema.ts`.
+- Use version-controlled migrations via `drizzle-kit`.
+- Avoid embedding business logic in queries → encapsulate in services.
+- Extract common queries (`findById`, `create`, `update`) into reusable helpers.
+
+---
+
+## API Design (Express)
+
+- Follow **RESTful conventions**.
+- Group routes by module (`/users`, `/auth`).
+- Centralize authentication and authorization middleware.
+- Always version APIs (`/api/v1`).
+
+---

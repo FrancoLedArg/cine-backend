@@ -1,0 +1,62 @@
+{
+  "extends": "@repo/typescript-config/base.json",
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "es2022",
+    "lib": ["es2022"],
+
+    /* Modules */
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "types": ["node"],
+
+    /* Interop Constraints */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* Strict Type-Checking Options */
+    "strict": true,
+    // "noImplicitAny": true,
+    // "strictNullChecks": true,
+    // "strictFunctionTypes": true,
+    // "strictBindCallApply": true,
+    // "strictPropertyInitialization": true,
+    // "noImplicitThis": true,
+    // "useUnknownInCatchVariables": true,
+    // "alwaysStrict": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "exactOptionalPropertyTypes": true,
+    // "noImplicitReturns": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noUncheckedIndexedAccess": true,
+    // "noImplicitOverride": true,
+    // "noPropertyAccessFromIndexSignature": true,
+    // "allowUnusedLabels": true,
+    // "allowUnreachableCode": true,
+    "skipLibCheck": true,
+
+    /* Emit Options */
+    "sourceMap": true,
+    "noEmitOnError": true,
+
+    /* Project References (Optional) */
+    // "incremental": true,
+    // "composite": true,
+    // "tsBuildInfoFile": "./.tsbuildinfo",
+
+    /* JavaScript Support */
+    "allowJs": false
+
+    /* You can uncomment and add more options as needed */
+  },
+  "include": ["src/*", "src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
