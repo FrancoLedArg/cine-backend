@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validateRequest } from "@/lib/validation";
+import { validateSchema } from "@/middlewares/validate-schema";
 
 // Controllers
 import {
@@ -20,12 +20,8 @@ const router = Router();
 
 router.get("/", getAllTickets);
 router.get("/:id", getTicketById);
-router.post("/", validateRequest({ body: createTicketSchema }), createTicket);
-router.patch(
-  "/:id",
-  validateRequest({ body: updateTicketSchema }),
-  updateTicket,
-);
+router.post("/", validateSchema(createTicketSchema), createTicket);
+router.patch("/:id", validateSchema(updateTicketSchema), updateTicket);
 router.delete("/:id", deleteTicket);
 
 export default router;

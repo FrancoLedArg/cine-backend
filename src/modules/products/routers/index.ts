@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validateRequest } from "@/lib/validation";
+import { validateSchema } from "@/middlewares/validate-schema";
 
 // Controllers
 import {
@@ -20,12 +20,8 @@ const router = Router();
 
 router.get("/", getAllProducts);
 router.get("/:id", getProductById);
-router.post("/", validateRequest({ body: createProductSchema }), createProduct);
-router.patch(
-  "/:id",
-  validateRequest({ body: updateProductSchema }),
-  updateProduct,
-);
+router.post("/", validateSchema(createProductSchema), createProduct);
+router.patch("/:id", validateSchema(updateProductSchema), updateProduct);
 router.delete("/:id", deleteProduct);
 
 export default router;

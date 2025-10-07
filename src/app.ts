@@ -42,10 +42,10 @@ app.use(
 // Mounted Routers
 app.use("/api/v1/events", eventsRouter);
 app.use("/api/v1/showtimes", showtimesRouter);
-app.use("/api/v1/tickets", ticketsRouter);
-app.use("/api/v1/products", productsRouter);
-app.use("/api/v1/carts", cartsRouter);
-app.use("/api/v1/orders", ordersRouter);
+// app.use("/api/v1/tickets", ticketsRouter);
+// app.use("/api/v1/products", productsRouter);
+// app.use("/api/v1/carts", cartsRouter);
+// app.use("/api/v1/orders", ordersRouter);
 
 // Error handler middleware
 app.use(errorHandler);

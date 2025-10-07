@@ -70,37 +70,51 @@ export const verification = pgTable("verification", {
   ),
 });
 
-// Events
-export const eventTypes = pgEnum("event_types", ["movie", "theater"]);
+// Info Slides
+export const infoSlides = pgTable("info_slides", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  imageUrl: text("image_url").notNull(),
+  createdAt: timestamp("created_at")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+  updatedAt: timestamp("updated_at")
+    .$defaultFn(() => /* @__PURE__ */ new Date())
+    .notNull(),
+});
 
-export const events = pgTable("events", {
+// Movies
+export const movieTypes = pgEnum("movie_types", ["movie", "special_event"]);
+
+export const movies = pgTable("movies", {
   id: serial("id").primaryKey(),
   title: varchar("title", { length: 200 }).notNull(),
   description: text("description"),
-  type: eventTypes("type").notNull().default("movie"),
+  type: movieTypes("type").notNull().default("movie"),
   duration: integer("duration"),
   posterUrl: text("poster_url"),
   bannerUrl: text("banner_url"),
   trailerUrl: text("trailer_url"),
 });
 
-export const eventRelations = relations(events, ({ one, many }) => ({
+export const movieRelations = relations(movies, ({ many }) => ({
   showtimes: many(showtimes),
 }));
 
 // Showtimes
 export const showtimes = pgTable("showtimes", {
   id: serial("id").primaryKey(),
-  event_id: integer("event_id")
+  movie_id: integer("movie_id")
     .notNull()
-    .references(() => events.id, { onDelete: "cascade" }),
+    .references(() => movies.id, { onDelete: "cascade" }),
   start_datetime: timestamp("start_datetime").notNull(),
 });
 
 export const showtimeRelations = relations(showtimes, ({ one, many }) => ({
-  event: one(events, {
-    fields: [showtimes.event_id],
-    references: [events.id],
+  movie: one(movies, {
+    fields: [showtimes.movie_id],
+    references: [movies.id],
   }),
   seats: many(seats),
 }));
